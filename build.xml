@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Create Runnable Jar for Project BreweryProgram with Jar-in-Jar Loader" default="create_run_jar">
+	<target name="create_run_jar">
+		
+		<delete file="C:/Users/Amy's Laptop/Desktop/Test/BreweryProject.jar" failonerror="false"></delete>
+		<jar destfile="C:/Users/Amy's Laptop/Desktop/Test/BreweryProject.jar">
+			<manifest>
+				<attribute name="Main-Class" value="brewery.gui.MainFrame" />
+			</manifest>
+			<fileset dir="${basedir}/bin" />
+			<fileset dir="${basedir}">
+				<include name="images/*.*" />
+			</fileset>
+		</jar>
+		
+		<antcall target="writeRunScripts"></antcall>
+	</target>
+
+	<target name="writeRunScripts">
+		
+		<echo file="C:/Users/Amy's Laptop/Desktop/Test/run.bat" append="false">java -jar BreweryProject.jar -Djava.library.path .</echo>
+		<echo file="C:/Users/Amy's Laptop/Desktop/Test/run.sh" append="false">#!/bin/bash
+java -jar FinalProjectGUI3.jar -Djava.library.path .</echo>
+		
+		<fixcrlf srcdir="C:/Users/Amy's Laptop/Desktop/Test/"></fixcrlf>
+		
+	</target>
+</project>
