@@ -23,7 +23,7 @@ public class GuiFactory extends JPanel {
 
 	/*
 	 * This class makes it easy to add new buttons, labels, and images to any
-	 * class it needs
+	 * class it need
 	 */
 
 	private static final long serialVersionUID = 1L;
