@@ -35,14 +35,29 @@ public class FileIO {
 	}// end saveProfile
 
 	// loads any serialized data that exists in the profile folder
-	public static Profile loadProfile() {
+	public static Profile loadProfile(String profileName) {
 
 		Profile profile = new Profile();
+		
+		//Reads through profile directory to find matching profleeName to pull information from
+		String fileNameToGet = null;
+		File folder = new File("profile");
+		folder.mkdirs();
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+				String username = listOfFiles[i].getName();
+			
+				if (username.equals(profileName)){
+					fileNameToGet = profileName;
+					break;
+				}
+				else {}
+			}
+		String dirName = "profile/";
+		String filename = dirName + fileNameToGet;
 
-		// this code hasn't been updated, so it might not find the correct place
-		// to find these serialized files
 		try {
-			FileInputStream fileIn = new FileInputStream("profile/userOne.ser");
+			FileInputStream fileIn = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			profile = (Profile) in.readObject();
 			in.close();
