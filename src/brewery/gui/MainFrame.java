@@ -61,6 +61,8 @@ public class MainFrame extends JPanel {
 		frame.getContentPane().add(allPanels.getUserMainProfilePanel());
 		allPanels.getUserMainProfilePanel().setVisible(false);
 		
+		frame.getContentPane().add(allPanels.getDisplayTemperaturePanel());
+		allPanels.getDisplayTemperaturePanel().setVisible(false);
 
 	}// end MainFrame()
 

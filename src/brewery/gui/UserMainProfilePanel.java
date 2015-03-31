@@ -51,6 +51,17 @@ public class UserMainProfilePanel extends JPanel {
 
 					}
 				});
+		
+		GuiFactory.addButton(getParent(), "Quick Start", container, 400, 50,
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						panels.getUserMainProfilePanel().setVisible(false);
+						panels.getDisplayTemperaturePanel().setVisible(true);
+
+					}
+				});
 
 		//creates the top bar
 		GuiFactory.topToolBar(container);

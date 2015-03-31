@@ -16,6 +16,7 @@ public class AllPanels extends JPanel {
 	//Initializes all panels and frames
 	private static MainFrame frame;
 	private static CreateNewUserPanel createNewUserPanel;
+	private static DisplayTemperaturePanel displayTemperaturePanel;
 	private static SignInPanel signInPanel;
 	private static UserMainProfilePanel userMainProfilePanel;
 	private static WelcomePanel welcomePanel;
@@ -27,6 +28,8 @@ public class AllPanels extends JPanel {
 		frame = mainFrame;
 		
 		createNewUserPanel = new CreateNewUserPanel(frame, this);
+		
+		displayTemperaturePanel = new DisplayTemperaturePanel(frame, this);
 	
 		signInPanel = new SignInPanel(frame, this);
 		
@@ -41,6 +44,9 @@ public class AllPanels extends JPanel {
 		return createNewUserPanel;
 	}
 
+	public DisplayTemperaturePanel getDisplayTemperaturePanel() {
+		return displayTemperaturePanel;
+	}
 
 	public SignInPanel getSignInPanel() {
 		return signInPanel;
