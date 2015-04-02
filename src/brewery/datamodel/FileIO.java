@@ -35,7 +35,7 @@ public class FileIO {
 	}// end saveProfile
 
 	// loads any serialized data that exists in the profile folder
-	public static Profile loadProfile(String profileName) {
+	public static Profile loadProfile(String profileName) throws Exception {
 
 		Profile profile = new Profile();
 		
@@ -51,7 +51,9 @@ public class FileIO {
 					fileNameToGet = profileName;
 					break;
 				}
-				else {}
+				else {
+					throw new Exception("Profile not found");
+				}
 			}
 		String dirName = "profile/";
 		String filename = dirName + fileNameToGet;

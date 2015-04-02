@@ -9,17 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import brewery.datamodel.Profile;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class UserMainProfilePanel extends JPanel {
+public class MainProfilePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private static MainFrame frame;
 	private static AllPanels panels;
+	private Profile currentProfile;
 
-	public UserMainProfilePanel(MainFrame mainFrame, AllPanels allPanels) throws IOException {
+	public MainProfilePanel(MainFrame mainFrame, AllPanels allPanels) throws IOException {
 
 		// initialize panels
 		frame = mainFrame;
