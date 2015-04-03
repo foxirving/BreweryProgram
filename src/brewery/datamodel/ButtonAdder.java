@@ -15,36 +15,52 @@ import javax.swing.border.Border;
 import brewery.gui.AllPanels;
 import brewery.gui.GuiFactory;
 import brewery.gui.MainFrame;
+import brewery.temperatureDataModel.RxTxComm;
 
 public class ButtonAdder {
 
 	private static MainFrame frame;
 	private static AllPanels panels;
+	private static Profile profile;
 
-	
-	//adds a new button for every serialized file that exists in the profile folder
+	private static Profile instance;
+
+	private ButtonAdder() {
+
+	}
+
+	public static Profile getInstance() {
+		if (instance == null) {
+			instance = new Profile();
+		}
+		return instance;
+	}
+
+	// adds a new button for every serialized file that exists in the profile
+	// folder
 	public static void addNewUserButton(MainFrame mainFrame,
 			AllPanels allPanels, JPanel currentPanel) {
 
 		// initialize panels
 		frame = mainFrame;
 		panels = allPanels;
+		profile = new Profile();
 
-		//reads through the profile file
-		File folder = new File("profile");
-		folder.mkdirs();
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				//gets the username of each serialized file
-				String username = listOfFiles[i].getName();
+		for (int i = 0; i < Profile.readProfileFolder().length; i++) {
+			if (Profile.readProfileFolder()[i].isFile()) {
 
-				//adds button with that username
+				String username = Profile.readProfileFolder()[i].getName();
+
+				// adds button with that user name
 				addUserButton(frame, username, currentPanel,
 						new ActionListener() {
 
 							@Override
 							public void actionPerformed(ActionEvent e) {
+
+								String name = getInstance().getCurrentProfile();
+								name = username;
+								System.out.println(name);
 
 								panels.getSignInPanel().setVisible(false);
 								panels.getUserMainProfilePanel().setVisible(
@@ -53,10 +69,11 @@ public class ButtonAdder {
 							}
 						});
 			}// end if
-			else {}
+			else {
+			}
 
 		}// end for
-	}//end addNewUserButton method
+	}// end addNewUserButton method
 
 	// Method that adds a new button, used by the AddNewUSerButton method
 	public static void addUserButton(Component frameToAddTo, String buttonName,
@@ -82,23 +99,23 @@ public class ButtonAdder {
 
 	}// end AddButton()
 
-	//removes all buttons from a list
+	// removes all buttons from a list
 	public static void removeNewUserButton(MainFrame mainFrame,
 			AllPanels allPanels, JPanel currentPanel) {
-		
+
 		// initialize panels
 		frame = mainFrame;
 		panels = allPanels;
-		
-		//looks through a specified panel and removes all button components
-		//example use of this method found in CreateNewUserPanel class
+
+		// looks through a specified panel and removes all button components
+		// example use of this method found in CreateNewUserPanel class
 		Component[] comps = currentPanel.getComponents();
 		for (int i = 0; i < comps.length; i++) {
-			
-			if (comps[i] instanceof JButton){
-				currentPanel.remove(comps[i]);	
+
+			if (comps[i] instanceof JButton) {
+				currentPanel.remove(comps[i]);
 			}
-		}//end for
-		
-	}//end removeNewUserButton
-}//end class
+		}// end for
+
+	}// end removeNewUserButton
+}// end class

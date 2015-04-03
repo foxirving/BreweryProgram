@@ -41,11 +41,11 @@ public class FileIO {
 		
 		//Reads through profile directory to find matching profleeName to pull information from
 		String fileNameToGet = null;
-		File folder = new File("profile");
-		folder.mkdirs();
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-				String username = listOfFiles[i].getName();
+		
+		//uses method to read in the profile folder
+		Profile.readProfileFolder();
+		for (int i = 0; i < Profile.readProfileFolder().length;) {
+				String username = Profile.readProfileFolder()[i].getName();
 			
 				if (username.equals(profileName)){
 					fileNameToGet = profileName;

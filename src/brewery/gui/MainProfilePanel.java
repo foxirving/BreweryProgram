@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import brewery.datamodel.ButtonAdder;
+import brewery.datamodel.FileIO;
 import brewery.datamodel.Profile;
 
 import java.awt.event.ActionListener;
@@ -20,13 +22,14 @@ public class MainProfilePanel extends JPanel {
 
 	private static MainFrame frame;
 	private static AllPanels panels;
-	private Profile currentProfile;
+	private Profile profile;
 
 	public MainProfilePanel(MainFrame mainFrame, AllPanels allPanels) throws IOException {
 
 		// initialize panels
 		frame = mainFrame;
 		panels = allPanels;
+		profile = new Profile();
 
 		// defines the panel dimensions
 		JPanel panel = new JPanel();
@@ -66,6 +69,10 @@ public class MainProfilePanel extends JPanel {
 					}
 				});
 
+//		String name = ButtonAdder.getInstance().getCurrentProfile();
+//		System.out.println(name);
+//		GuiFactory.newLabel(name, container, 200,300);
+		
 		//creates the top bar
 		GuiFactory.topToolBar(container);
 

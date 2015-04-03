@@ -1,4 +1,4 @@
-package temperatureDataModel;
+package brewery.temperatureDataModel;
 
 import java.awt.image.SampleModel;
 import java.io.BufferedReader;
@@ -14,15 +14,15 @@ import java.util.Enumeration;
 
 public class RxTxComm implements SerialPortEventListener {
 	
-	private static RxTxComm instance;
+	privateRxTxComm profile instance;
 	
 	private RxTxComm() {
 			initialize();
 	}
 	
-public static RxTxComm getInstance() {
+publicRxTxComm profile getInstance() {
 	if (instance == null) {
-			instance = new RxTxComm();
+			instancRxTxComm profile();
 	}
 	return instance;
 	}
@@ -140,8 +140,7 @@ public static RxTxComm getInstance() {
 	//public TempHist getTemp() {
 	// return tempHist;
 	// }
-	public static void main(String[] args) throws Exception {
-	RxTxComm main = new RxTxComm();
+	public static void main(String[] args) throws ExceptRxTxComm	profile maiRxTxComm profile();
 	main.initialize();
 	Thread t=new Thread() {
 	public void run() {
