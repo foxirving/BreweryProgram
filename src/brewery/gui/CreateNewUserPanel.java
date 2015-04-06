@@ -1,13 +1,18 @@
 package brewery.gui;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import brewery.datamodel.ButtonAdder;
 import brewery.datamodel.FileIO;
@@ -19,18 +24,20 @@ public class CreateNewUserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	private static boolean isIncorrectInput = true;
+	
+	private static JTextField firstName;
+	private static JTextField lastName;
+	private static JTextField username;
+	private static JTextField email;
+
 	private static MainFrame frame;
 	private static AllPanels panels;
 	private static Profile profile;
 
-	// private static JTextField txtField;
-	private JTextField textFieldFirstName;
-	private JTextField textFieldLastName;
-	private JTextField textFieldUsername;
-	private JTextField textFieldEmail;
-	private JTextField textFieldPassword;
-	private JTextField textFieldPasswordAgain;
 	private JPanel container;
+	protected static final Container CenterTextBox = null;
+	private static JPanel textFieldContainer;
 
 	public CreateNewUserPanel(MainFrame mainFrame, AllPanels allPanels)
 			throws IOException {
@@ -46,15 +53,19 @@ public class CreateNewUserPanel extends JPanel {
 		setVisible(false);
 		setLayout(new CardLayout(0, 0));
 
-		//add all buttons, labels, etc., to this JPanel(container)
+		// add all buttons, labels, etc., to this JPanel(container)
 		container = new JPanel();
 		container.setSize(new Dimension(800, 480));
 		container.setBackground(new Color(204, 153, 102));
 		add(container, "name_57873481318249");
 		container.setLayout(null);
 
-		//back button
-		GuiFactory.addButton(frame, "back", container, 0, 350,
+		textFieldContainer = new JPanel();
+		textFieldContainer.setBounds(197, 11, 400, 400);
+		container.add(textFieldContainer);
+		textFieldContainer.setLayout(null);
+
+		GuiFactory.addButtonStyleTwo(frame, "Back", container, 0, 350,
 				new ActionListener() {
 
 					@Override
@@ -66,145 +77,228 @@ public class CreateNewUserPanel extends JPanel {
 					}
 				});
 
-		// saves data the user input
-		GuiFactory.addButton(frame, "Create", container, 400, 350,
+		GuiFactory.addButtonStyleTwo(frame, "Next", container, 600, 350,
 				new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 
-						//test to see if the user has a left any text fields blank
-						if (textFieldFirstName.getText().equals("")) {
+						if(isIncorrectInput){
+					    	 TestTextField(textFieldContainer);
+						}  
+					     
+						else{
+							String textFieldFirstName = firstName.getText();
+							String textFieldLastName = lastName.getText();
+							String textFieldUsername = username.getText();
+							String textFieldEmail = email.getText();
+							String textFieldPassword = null;
 
-							//error message
-							GuiFactory.errorMessage(textFieldFirstName, container, 175, 65);
-						
-						if (textFieldLastName.getText().equals("")) {
+							profile = new Profile(textFieldFirstName,
+									textFieldLastName, textFieldUsername,
+									textFieldEmail, textFieldPassword);
 
-							GuiFactory.errorMessage(textFieldFirstName, container, 575, 65);
-							
-						}
-						if (textFieldUsername.getText().equals("")) {
-
-							GuiFactory.errorMessage(textFieldFirstName, container, 175, 150);
-							
-						}
-						if (textFieldEmail.getText().equals("")) {
-
-							GuiFactory.errorMessage(textFieldFirstName, container, 575, 150);
-							
-						}
-						if (textFieldPassword.getText().equals("")) {
-
-							GuiFactory.errorMessage(textFieldFirstName, container, 450, 225);
-							
-						}
-						if (textFieldPasswordAgain.getText().equals("")) {
-
-							GuiFactory.errorMessage(textFieldFirstName, container, 450, 275);
-							
-						}
-
-						//if the user input all needed data, the program then saves the data
-						} else {
-							//gets each String from each text field
-							String textFieldFirstNameValue = textFieldFirstName
-									.getText();
-							String textFieldLastNameValue = textFieldLastName
-									.getText();
-							String textFieldUsernameValue = textFieldUsername
-									.getText();
-							String textFieldEmailValue = textFieldEmail
-									.getText();
-							String textFieldPasswordValue = textFieldPassword
-									.getText();
-
-							//passes it though the profile class
-							profile = new Profile(textFieldFirstNameValue,
-									textFieldLastNameValue,
-									textFieldUsernameValue,
-									textFieldEmailValue, textFieldPasswordValue);
-							
-							//passes it through the FileIO class to be serialized
+							// passes it through the FileIO class to be
+							// serialized
 							FileIO.saveProfile(profile);
 
-							//clears text fields
-							textFieldFirstName.setText("");
-							textFieldLastName.setText("");
-							textFieldUsername.setText("");
-							textFieldEmail.setText("");
-							textFieldPassword.setText("");
-							textFieldPasswordAgain.setText("");
-							
-							//removes all buttons from the sign in panel, then adds them again
-							//this is to update the button list with the new profile the user just created
-							ButtonAdder.removeNewUserButton(frame, panels, panels.getSignInPanel().getColumnPanel());
-							ButtonAdder.addNewUserButton(frame, panels, panels.getSignInPanel().getColumnPanel());
-							
-							//adds "+ new user" button after the other buttons have been updated
-							GuiFactory.addButton(frame, "+ new user", panels.getSignInPanel().getColumnPanel(), 200, 250,
-									new ActionListener() {
+							ClearTextBox(textFieldContainer);
+
+							// removes all buttons from the sign in panel, then
+							// adds them again
+							// this is to update the button list with the new
+							// profile the user just created
+							ButtonAdder.removeNewUserButton(frame, panels,
+									panels.getSignInPanel().getColumnPanel());
+							ButtonAdder.addNewUserButton(frame, panels, panels
+									.getSignInPanel().getColumnPanel());
+
+							// adds "+ new user" button after the other buttons
+							// have
+							// been updated
+							GuiFactory.addButton(frame, "+ new user", panels
+									.getSignInPanel().getColumnPanel(), 200,
+									250, new ActionListener() {
 
 										@Override
-										public void actionPerformed(ActionEvent e) {
+										public void actionPerformed(
+												ActionEvent e) {
 
-											// moves the program from one panel to the next
-											panels.getSignInPanel().setVisible(false);
-											panels.getCreateNewUserPanel().setVisible(true);
+											// moves the program from one panel
+											// to
+											// the next
+											panels.getSignInPanel().setVisible(
+													false);
+											panels.getCreateNewUserPanel()
+													.setVisible(true);
 
 										}
 									});
-					
-							//moves to the sign in panel
+
+							// moves to the sign in panel
 							panels.getCreateNewUserPanel().setVisible(false);
 							panels.getSignInPanel();
 							panels.getSignInPanel().setVisible(true);
-
-						}// end else
+						}
 					}
+					
 				});
 
-		//text fields
-		textFieldFirstName = new JTextField();
-		textFieldFirstName.setBounds(175, 25, 200, 40);
-		container.add(textFieldFirstName);
-		textFieldFirstName.setColumns(10);
+		// adds text field
+		addTextField();
 
-		textFieldLastName = new JTextField();
-		textFieldLastName.setBounds(575, 25, 200, 40);
-		container.add(textFieldLastName);
-		textFieldLastName.setColumns(10);
+	}// end CreateNewUser()
 
-		textFieldUsername = new JTextField();
-		textFieldUsername.setBounds(175, 100, 200, 40);
-		container.add(textFieldUsername);
-		textFieldUsername.setColumns(10);
+	// tests the text inside the text fields for the correct input
+	public static void TestTextField(JPanel CenterTextBox) {
+		
+		int i = 0;
 
-		textFieldEmail = new JTextField();
-		textFieldEmail.setBounds(575, 100, 200, 40);
-		container.add(textFieldEmail);
-		textFieldEmail.setColumns(10);
+		// gets the text fields from the CenterTextBox JPanel
+		for (Component c : CenterTextBox.getComponents()) {
 
-		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(225, 225, 200, 40);
-		container.add(textFieldPassword);
-		textFieldPassword.setColumns(10);
+			
+			if (c instanceof JTextField) {
 
-		textFieldPasswordAgain = new JTextField();
-		textFieldPasswordAgain.setBounds(225, 275, 200, 40);
-		container.add(textFieldPasswordAgain);
-		textFieldPasswordAgain.setColumns(10);
+				String inputText = ((JTextField) c).getText();
 
-		// Labels
-		GuiFactory.newLabel("First Name", container, 50, 25);
-		GuiFactory.newLabel("Last Name", container, 450, 25);
-		GuiFactory.newLabel("Username", container, 50, 100);
-		GuiFactory.newLabel("E-mail", container, 450, 100);
+				if (inputText.equals(" ") || inputText.equals("")) {
+					System.out.println("please enter stuff in text field");
+				}
 
-		GuiFactory.newLabel("Passoword protected: y/n ", container, 50, 175);
+				// There is def a better way to write this, but I couldn't
+				// figure it out
+				if (inputText.equals("First Name")) {
+					System.out.println("original text not allowed");
+				}
+				if (inputText.equals("Last Name")) {
+					System.out.println("original text not allowed");
+				}
+				if (inputText.equals("Username")) {
+					System.out.println("original text not allowed");
+				}
+				if (inputText.equals("E-mail")) {
+					System.out.println("original text not allowed");
+				}
+				if (inputText.equals("Re-enter E-mail")) {
+					System.out.println("original text not allowed");
+				}
+				else{
+					i = i + 1;
+				}
+				
 
-		GuiFactory.newLabel("Password", container, 50, 225);
-		GuiFactory.newLabel("Re-type Password", container, 50, 275);
+			}// end if
+			else {
+			}
 
-	}// end CreateNewUse()
-}// end CreateNewUser class
+			if (i == 5){
+				isIncorrectInput = false;
+				break;
+			}
+
+			
+		}// end for
+		
+		
+	}// end TestTextField
+
+	public static void ClearTextBox(JPanel CenterTextBox) {
+
+		for (Component c : CenterTextBox.getComponents()) {
+
+			if (c instanceof JTextField) {
+				((JTextField) c).setText("");
+			}
+		}
+	}
+
+	public static void addTextField() {
+
+		firstName = new JTextField();
+		firstName.setText("First Name");
+		firstName.setHorizontalAlignment(SwingConstants.CENTER);
+		firstName.setBounds(60, 20, 280, 50);
+
+		firstName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (firstName.getText().equals("First Name")) {
+					firstName.setText("");
+				}// end if
+			}
+		});
+		textFieldContainer.add(firstName);
+		firstName.setColumns(10);
+
+		lastName = new JTextField();
+		lastName.setText("Last Name");
+		lastName.setHorizontalAlignment(SwingConstants.CENTER);
+		lastName.setBounds(60, 80, 280, 50);
+
+		// clears text field when clicked once
+		lastName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (lastName.getText().equals("Last Name")) {
+					lastName.setText("");
+				}// end if
+			}
+		});
+		textFieldContainer.add(lastName);
+		lastName.setColumns(10);
+
+		username = new JTextField();
+		username.setText("Username");
+		username.setHorizontalAlignment(SwingConstants.CENTER);
+		username.setBounds(60, 140, 280, 50);
+
+		// clears text field when clicked once
+		username.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (username.getText().equals("Username")) {
+					username.setText("");
+				}// end if
+			}
+		});
+		textFieldContainer.add(username);
+		username.setColumns(10);
+
+		email = new JTextField();
+		email.setText("E-mail");
+		email.setHorizontalAlignment(SwingConstants.CENTER);
+		email.setBounds(60, 240, 280, 50);
+
+		// clears text field when clicked once
+		email.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (email.getText().equals("E-mail")) {
+					email.setText("");
+				}// end if
+			}
+		});
+		textFieldContainer.add(email);
+		email.setColumns(10);
+
+		JTextField reEmail = new JTextField();
+		reEmail.setText("Re-enter E-mail");
+		reEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		reEmail.setBounds(60, 300, 280, 50);
+
+		// clears text field when clicked once
+		reEmail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (reEmail.getText().equals("Re-enter E-mail")) {
+					reEmail.setText("");
+				}// end if
+			}
+		});
+		textFieldContainer.add(reEmail);
+		reEmail.setColumns(10);
+
+	}
+
+}// end class

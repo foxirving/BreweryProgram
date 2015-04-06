@@ -122,4 +122,30 @@ public class GuiFactory extends JPanel {
 
 	}
 
+	public static void addButtonStyleTwo(Component frameToAddTo,
+			String buttonName, JPanel currentPanel, int x, int y,
+			ActionListener newAction) {
+	
+		{// button instance
+	
+			// creates new button
+			JButton newButtonHandle = new JButton(buttonName);
+			newButtonHandle.setForeground(new Color(51, 0, 0));
+			newButtonHandle.setBackground(new Color(210, 180, 140));
+			newButtonHandle.setFont(new Font("DejaVu Serif Condensed",
+					Font.PLAIN, 47));
+			Border emptyBorder = BorderFactory.createEmptyBorder();
+			newButtonHandle.setBorder(emptyBorder);
+	
+			newButtonHandle.addActionListener(newAction);
+			newButtonHandle.setBounds(x, y, 200, 50);
+			newButtonHandle.setLayout(null);
+			currentPanel.add(newButtonHandle);
+			newButtonHandle.setVisible(true);
+	
+		}// end button instance
+	
+	}// end AddButton()
+
+
 }// end class
