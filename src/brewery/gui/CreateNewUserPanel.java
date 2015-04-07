@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.SwingConstants;
 import brewery.datamodel.ButtonAdder;
 import brewery.datamodel.FileIO;
 import brewery.datamodel.Profile;
+import brewery.datamodel.TextFieldTester;
 
 import java.awt.CardLayout;
 
@@ -25,7 +27,6 @@ public class CreateNewUserPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static boolean isIncorrectInput = true;
 	static boolean isPasswordProtected = true;
 	
 	private static JTextField firstName;
@@ -35,7 +36,6 @@ public class CreateNewUserPanel extends JPanel {
 
 	private static MainFrame frame;
 	private static AllPanels panels;
-	private static Profile profile;
 
 	private JPanel container;
 	protected static final Container CenterTextBox = null;
@@ -49,7 +49,9 @@ public class CreateNewUserPanel extends JPanel {
 		// initialize panels
 		frame = mainFrame;
 		panels = allPanels;
-		boolean isPassword = isPasswordProtected;
+	
+		
+		//boolean isPassword = isPasswordProtected;
 
 		// defines the panel dimensions
 		JPanel panel = new JPanel();
@@ -103,47 +105,73 @@ public class CreateNewUserPanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 
-						removeTextField(textFieldContainer);
+						String textFieldFirstName = firstName.getText();
+						String textFieldLastName = lastName.getText();
+						String textFieldUsername = username.getText();
+						String textFieldEmail = email.getText();
 						
-						ButtonAdder.removeNewUserButton(frame, panels, JButtonContainerTwo);
+						ArrayList<String> inputText = new ArrayList<String>();
+						inputText.add(textFieldFirstName);
+						inputText.add(textFieldLastName);
+						inputText.add(textFieldUsername);
+						inputText.add(textFieldEmail);
 						
-						addTextFieldTwo(textFieldContainer);
-						addTextFieldTwoButtons(textFieldContainer);
-						
-						//Second "next" button
-						GuiFactory.addButtonStyleTwo(frame, "Next2", JButtonContainerTwo, 0, 0,
-								new ActionListener() {
-							
-								
-									@Override
-									public void actionPerformed(ActionEvent e) {
-
-										
-										if (isPassword == true){
-											
-											System.out.println("true");
-											
-											
-										}
-										else if (isPassword == false){
-											
-											System.out.println("false");
-											
-										}
-										else{
-											System.out.println("this isnt working");
-										}
-										
-
-
-									}
-								});
-						
-						//refreshed panel
-						panels.getCreateNewUserPanel().setVisible(false);
-						panels.getCreateNewUserPanel().setVisible(true);
-
-					}	
+						Boolean isCorrectInput = false;
+						isCorrectInput = TextFieldTester.getIsCorrectInput();
+												
+//						while(!isCorrectInput){
+//							
+//							TextFieldTester.textFieldTester(inputText);
+//							
+//							if (isCorrectInput == true){
+//								break;
+//							}
+//							else{}
+//							
+//						}
+//						
+//						removeTextField(textFieldContainer);
+//						
+//						ButtonAdder.removeNewUserButton(frame, panels, JButtonContainerTwo);
+//						
+//						addTextFieldTwo(textFieldContainer);
+//						addTextFieldTwoButtons(textFieldContainer);
+//						
+//						//Second "next" button
+//						GuiFactory.addButtonStyleTwo(frame, "Next2", JButtonContainerTwo, 0, 0,
+//								new ActionListener() {
+//							
+//								
+//									@Override
+//									public void actionPerformed(ActionEvent e) {
+//
+//										
+////										if (isPassword == true){
+////											
+////											System.out.println("true");
+////											
+////											
+////										}
+////										else if (isPassword == false){
+////											
+////											System.out.println("false");
+////											
+////										}
+////										else{
+////											System.out.println("this isnt working");
+////										}
+//										
+//
+//
+//									}
+//								});
+//						
+//						//refreshed panel
+//						panels.getCreateNewUserPanel().setVisible(false);
+//						panels.getCreateNewUserPanel().setVisible(true);
+//
+					}
+	
 				});
 		
 
@@ -194,10 +222,10 @@ public class CreateNewUserPanel extends JPanel {
 			else {
 			}
 
-			if (i == 5){
-				isIncorrectInput = false;
-				break;
-			}
+//			if (i == 5){
+//				isIncorrectInput = false;
+//				break;
+//			}
 
 			
 		}// end for
