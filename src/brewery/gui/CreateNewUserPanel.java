@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +26,7 @@ public class CreateNewUserPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private static boolean isIncorrectInput = true;
+	static boolean isPasswordProtected = true;
 	
 	private static JTextField firstName;
 	private static JTextField lastName;
@@ -38,6 +40,8 @@ public class CreateNewUserPanel extends JPanel {
 	private JPanel container;
 	protected static final Container CenterTextBox = null;
 	private static JPanel textFieldContainer;
+	private static JPanel JButtonContainerOne;
+	private static JPanel JButtonContainerTwo;
 
 	public CreateNewUserPanel(MainFrame mainFrame, AllPanels allPanels)
 			throws IOException {
@@ -45,6 +49,7 @@ public class CreateNewUserPanel extends JPanel {
 		// initialize panels
 		frame = mainFrame;
 		panels = allPanels;
+		boolean isPassword = isPasswordProtected;
 
 		// defines the panel dimensions
 		JPanel panel = new JPanel();
@@ -64,8 +69,18 @@ public class CreateNewUserPanel extends JPanel {
 		textFieldContainer.setBounds(197, 11, 400, 400);
 		container.add(textFieldContainer);
 		textFieldContainer.setLayout(null);
+		
+		JButtonContainerOne = new JPanel();
+		JButtonContainerOne.setBounds(0, 350, 200, 50);
+		container.add(JButtonContainerOne);
+		JButtonContainerOne.setLayout(null);
+		
+		JButtonContainerTwo = new JPanel();
+		JButtonContainerTwo.setBounds(600, 350, 200, 50);
+		container.add(JButtonContainerTwo);
+		JButtonContainerTwo.setLayout(null);
 
-		GuiFactory.addButtonStyleTwo(frame, "Back", container, 0, 350,
+		GuiFactory.addButtonStyleTwo(frame, "Back", JButtonContainerOne, 0, 0,
 				new ActionListener() {
 
 					@Override
@@ -77,75 +92,62 @@ public class CreateNewUserPanel extends JPanel {
 					}
 				});
 
-		GuiFactory.addButtonStyleTwo(frame, "Next", container, 600, 350,
+	
+		// adds text field
+		addTextFieldOne(textFieldContainer);
+		
+		//first "Next" button
+		GuiFactory.addButtonStyleTwo(frame, "Next1", JButtonContainerTwo, 0, 0,
 				new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 
-						if(isIncorrectInput){
-					    	 TestTextField(textFieldContainer);
-						}  
-					     
-						else{
-							String textFieldFirstName = firstName.getText();
-							String textFieldLastName = lastName.getText();
-							String textFieldUsername = username.getText();
-							String textFieldEmail = email.getText();
-							String textFieldPassword = null;
+						removeTextField(textFieldContainer);
+						
+						ButtonAdder.removeNewUserButton(frame, panels, JButtonContainerTwo);
+						
+						addTextFieldTwo(textFieldContainer);
+						addTextFieldTwoButtons(textFieldContainer);
+						
+						//Second "next" button
+						GuiFactory.addButtonStyleTwo(frame, "Next2", JButtonContainerTwo, 0, 0,
+								new ActionListener() {
+							
+								
+									@Override
+									public void actionPerformed(ActionEvent e) {
 
-							profile = new Profile(textFieldFirstName,
-									textFieldLastName, textFieldUsername,
-									textFieldEmail, textFieldPassword);
-
-							// passes it through the FileIO class to be
-							// serialized
-							FileIO.saveProfile(profile);
-
-							ClearTextBox(textFieldContainer);
-
-							// removes all buttons from the sign in panel, then
-							// adds them again
-							// this is to update the button list with the new
-							// profile the user just created
-							ButtonAdder.removeNewUserButton(frame, panels,
-									panels.getSignInPanel().getColumnPanel());
-							ButtonAdder.addNewUserButton(frame, panels, panels
-									.getSignInPanel().getColumnPanel());
-
-							// adds "+ new user" button after the other buttons
-							// have
-							// been updated
-							GuiFactory.addButton(frame, "+ new user", panels
-									.getSignInPanel().getColumnPanel(), 200,
-									250, new ActionListener() {
-
-										@Override
-										public void actionPerformed(
-												ActionEvent e) {
-
-											// moves the program from one panel
-											// to
-											// the next
-											panels.getSignInPanel().setVisible(
-													false);
-											panels.getCreateNewUserPanel()
-													.setVisible(true);
-
+										
+										if (isPassword == true){
+											
+											System.out.println("true");
+											
+											
 										}
-									});
+										else if (isPassword == false){
+											
+											System.out.println("false");
+											
+										}
+										else{
+											System.out.println("this isnt working");
+										}
+										
 
-							// moves to the sign in panel
-							panels.getCreateNewUserPanel().setVisible(false);
-							panels.getSignInPanel();
-							panels.getSignInPanel().setVisible(true);
-						}
-					}
-					
+
+									}
+								});
+						
+						//refreshed panel
+						panels.getCreateNewUserPanel().setVisible(false);
+						panels.getCreateNewUserPanel().setVisible(true);
+
+					}	
 				});
+		
 
-		// adds text field
-		addTextField();
+		
 
 	}// end CreateNewUser()
 
@@ -213,7 +215,7 @@ public class CreateNewUserPanel extends JPanel {
 		}
 	}
 
-	public static void addTextField() {
+	public static void addTextFieldOne(JPanel textcontainer) {
 
 		firstName = new JTextField();
 		firstName.setText("First Name");
@@ -228,7 +230,7 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
-		textFieldContainer.add(firstName);
+		textcontainer.add(firstName);
 		firstName.setColumns(10);
 
 		lastName = new JTextField();
@@ -245,7 +247,7 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
-		textFieldContainer.add(lastName);
+		textcontainer.add(lastName);
 		lastName.setColumns(10);
 
 		username = new JTextField();
@@ -262,7 +264,7 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
-		textFieldContainer.add(username);
+		textcontainer.add(username);
 		username.setColumns(10);
 
 		email = new JTextField();
@@ -279,7 +281,7 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
-		textFieldContainer.add(email);
+		textcontainer.add(email);
 		email.setColumns(10);
 
 		JTextField reEmail = new JTextField();
@@ -296,9 +298,62 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
-		textFieldContainer.add(reEmail);
+		textcontainer.add(reEmail);
 		reEmail.setColumns(10);
 
 	}
 
+	public static void addTextFieldTwo(JPanel textcontainer){
+
+		
+		JTextField passwordQuestion = new JTextField();
+		passwordQuestion.setText("Would you like this profile to be password protected?");
+		passwordQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordQuestion.setBounds(20, 20, 350, 50);
+		textcontainer.add(passwordQuestion);
+		passwordQuestion.setColumns(10);
+	
+	}
+		
+	public static boolean addTextFieldTwoButtons(JPanel textcontainer){
+		JButton noButtom = new JButton("No");
+		noButtom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				isPasswordProtected = false;
+				
+				
+			}
+		});
+		noButtom.setBounds(50, 150, 100, 50);
+		textcontainer.add(noButtom);
+		
+		
+		JButton yesButtom = new JButton("Yes");
+		yesButtom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				isPasswordProtected = true;
+				
+			}
+		});
+		yesButtom.setBounds(150, 150, 100, 50);
+		textcontainer.add(yesButtom);
+		
+		return isPasswordProtected;
+		
+	}
+	
+	
+	public static void removeTextField(JPanel textcontainer){
+		
+		Component[] comps = textcontainer.getComponents();
+		for (int i = 0; i < comps.length; i++) {
+
+			if (comps[i] instanceof JTextField) {
+				textcontainer.remove(comps[i]);
+			}
+		}// end for
+	}
+	
 }// end class

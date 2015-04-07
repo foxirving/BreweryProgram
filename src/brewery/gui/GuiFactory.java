@@ -141,7 +141,7 @@ public class GuiFactory extends JPanel {
 			newButtonHandle.setBounds(x, y, 200, 50);
 			newButtonHandle.setLayout(null);
 			currentPanel.add(newButtonHandle);
-			newButtonHandle.setVisible(true);
+			
 	
 		}// end button instance
 	
