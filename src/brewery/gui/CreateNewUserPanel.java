@@ -23,7 +23,7 @@ import brewery.datamodel.TextFieldTester;
 
 import java.awt.CardLayout;
 
-public class CreateNewUserPanel extends JPanel {
+public class CreateNewUserPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +33,7 @@ public class CreateNewUserPanel extends JPanel {
 	private static JTextField lastName;
 	private static JTextField username;
 	private static JTextField email;
+	private static ArrayList<String> originalText = new ArrayList<String>();
 
 	private static MainFrame frame;
 	private static AllPanels panels;
@@ -44,7 +45,7 @@ public class CreateNewUserPanel extends JPanel {
 	private static JPanel JButtonContainerTwo;
 
 	public CreateNewUserPanel(MainFrame mainFrame, AllPanels allPanels)
-			throws IOException {
+			throws IOException{
 
 		// initialize panels
 		frame = mainFrame;
@@ -116,60 +117,36 @@ public class CreateNewUserPanel extends JPanel {
 						inputText.add(textFieldUsername);
 						inputText.add(textFieldEmail);
 						
-						Boolean isCorrectInput = false;
-						isCorrectInput = TextFieldTester.getIsCorrectInput();
-												
-//						while(!isCorrectInput){
-//							
-//							TextFieldTester.textFieldTester(inputText);
-//							
-//							if (isCorrectInput == true){
-//								break;
-//							}
-//							else{}
-//							
-//						}
-//						
-//						removeTextField(textFieldContainer);
-//						
-//						ButtonAdder.removeNewUserButton(frame, panels, JButtonContainerTwo);
-//						
-//						addTextFieldTwo(textFieldContainer);
-//						addTextFieldTwoButtons(textFieldContainer);
-//						
-//						//Second "next" button
-//						GuiFactory.addButtonStyleTwo(frame, "Next2", JButtonContainerTwo, 0, 0,
-//								new ActionListener() {
-//							
-//								
-//									@Override
-//									public void actionPerformed(ActionEvent e) {
-//
-//										
-////										if (isPassword == true){
-////											
-////											System.out.println("true");
-////											
-////											
-////										}
-////										else if (isPassword == false){
-////											
-////											System.out.println("false");
-////											
-////										}
-////										else{
-////											System.out.println("this isnt working");
-////										}
-//										
-//
-//
-//									}
-//								});
-//						
-//						//refreshed panel
-//						panels.getCreateNewUserPanel().setVisible(false);
-//						panels.getCreateNewUserPanel().setVisible(true);
-//
+	
+						TextFieldTester.textFieldTester(originalText, inputText);
+					
+
+						removeTextField(textFieldContainer);
+						
+						ButtonAdder.removeNewUserButton(frame, panels, JButtonContainerTwo);
+						
+						addTextFieldTwo(textFieldContainer);
+						addTextFieldTwoButtons(textFieldContainer);
+						
+						//Second "next" button
+						GuiFactory.addButtonStyleTwo(frame, "Next2", JButtonContainerTwo, 0, 0,
+								new ActionListener() {
+							
+								
+									@Override
+									public void actionPerformed(ActionEvent e) {
+
+
+									
+
+
+									}
+								});
+						
+						//refreshed panel
+						panels.getCreateNewUserPanel().setVisible(false);
+						panels.getCreateNewUserPanel().setVisible(true);
+
 					}
 	
 				});
@@ -258,6 +235,10 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
+		
+		//adds the original text to a string for TextFieldTester
+		originalText.add("First Name");
+		
 		textcontainer.add(firstName);
 		firstName.setColumns(10);
 
@@ -275,6 +256,10 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
+
+		//adds the original text to a string for TextFieldTester
+		originalText.add("Last Name");
+		
 		textcontainer.add(lastName);
 		lastName.setColumns(10);
 
@@ -292,6 +277,10 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
+
+		//adds the original text to a string for TextFieldTester
+		originalText.add("Username");
+		
 		textcontainer.add(username);
 		username.setColumns(10);
 
@@ -309,6 +298,10 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
+
+		//adds the original text to a string for TextFieldTester
+		originalText.add("E-mail");
+		
 		textcontainer.add(email);
 		email.setColumns(10);
 
@@ -326,6 +319,10 @@ public class CreateNewUserPanel extends JPanel {
 				}// end if
 			}
 		});
+
+		//adds the original text to a string for TextFieldTester
+		originalText.add("Re-enter E-mail");
+		
 		textcontainer.add(reEmail);
 		reEmail.setColumns(10);
 

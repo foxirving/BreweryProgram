@@ -8,92 +8,46 @@ import javax.swing.JTextField;
 
 public class TextFieldTester {
 
-	private static Boolean isCorrectInput = false;
-	private static Boolean instance;
-	private static ArrayList<String> inputText = new ArrayList<String>();
+	
+	//runs through the array list the of the input text, and test it 
+	public static void textFieldTester(ArrayList<String> OriginalText, ArrayList<String> allTextFields) {
 
-	public static Boolean getIsCorrectInput() {
-		return isCorrectInput;
-	}
-
-	public void setIsCorrectInput(Boolean isCorrectInput) {
-		this.isCorrectInput = isCorrectInput;
-	}
-
-	// creates the instance value of the boolean
-//	public static Boolean getInstance() {
-//		if (instance == null) {
-//			instance = new Boolean(isCorrectInput);
-//		}
-//		return instance;
-//	}
-
-	public static void textFieldTester(ArrayList<String> allTextFields) {
-
-		inputText = allTextFields;
+		ArrayList<String> inputText = allTextFields;
+		ArrayList<String> originalText = OriginalText;
 		
 		for (int i = 0; i < inputText.size(); i++) {
 
 			String text = inputText.get(i);
 
 			TestEmptyTextField(text);
-
-			// This is where we run the testing methods
-
+			
+			for (int j = 0; j < originalText.size(); j++) {
+				
+				String originalTextOne = originalText.get(i);
+				TestOriginalTextField(text, originalTextOne);
+				
+			}//end for
 		}// end for
 
 	}// end constructor
 
+	//test for an empty string
 	public static void TestEmptyTextField(String text) {
 
 		if (text.equals(" ") || text.equals("")) {
 			System.out.println("please enter stuff in text field");
-			isCorrectInput = false;
 		}
 
 	}
 
-	// tests the text inside the text fields for the correct input
-	public static void TestTextField(JPanel CenterTextBox) {
+	// tests to see if the text the user is the same as the text that was originally there
+	public static void TestOriginalTextField(String text, String OriginalText) {
 
-		int i = 0;
-
-		// gets the text fields from the CenterTextBox JPanel
-		for (Component c : CenterTextBox.getComponents()) {
-
-			if (c instanceof JTextField) {
-
-				String inputText = ((JTextField) c).getText();
-
-				if (inputText.equals(" ") || inputText.equals("")) {
-					System.out.println("please enter stuff in text field");
-				}
-
-				// There is def a better way to write this, but I couldn't
-				// figure it out
-				if (inputText.equals("First Name")) {
+		
+				if (text.equals(OriginalText)) {
 					System.out.println("original text not allowed");
 				}
-				if (inputText.equals("Last Name")) {
-					System.out.println("original text not allowed");
-				}
-				if (inputText.equals("Username")) {
-					System.out.println("original text not allowed");
-				}
-				if (inputText.equals("E-mail")) {
-					System.out.println("original text not allowed");
-				}
-				if (inputText.equals("Re-enter E-mail")) {
-					System.out.println("original text not allowed");
-				} else {
-					i = i + 1;
-				}
-
-			}// end if
-			else {
-			}
-
-		}// end for
+				else{}
 
 	}// end TestTextField
 }// end class
