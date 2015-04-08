@@ -118,6 +118,7 @@ public class CreateNewUserPanel extends JPanel{
 						inputText.add(textFieldEmail);
 						
 						//new version test
+						//New version AGAIN
 	
 						TextFieldTester.textFieldTester(originalText, inputText);
 					
