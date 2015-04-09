@@ -64,6 +64,16 @@ public class MainFrame extends JPanel {
 		frame.getContentPane().add(allPanels.getDisplayTemperaturePanel());
 		allPanels.getDisplayTemperaturePanel().setVisible(false);
 		
+		//quick start Panels
+		
+		frame.getContentPane().add(allPanels.getInProcessPanel());
+		allPanels.getInProcessPanel().setVisible(false);
+		
+		frame.getContentPane().add(allPanels.getInputStepsPanel());
+		allPanels.getInputStepsPanel().setVisible(false);
+		
+		frame.getContentPane().add(allPanels.getReviewInputStepsPanel());
+		allPanels.getReviewInputStepsPanel().setVisible(false);
 
 	}// end MainFrame()
 

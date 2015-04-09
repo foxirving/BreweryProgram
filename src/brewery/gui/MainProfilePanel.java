@@ -64,7 +64,7 @@ public class MainProfilePanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 
 						panels.getUserMainProfilePanel().setVisible(false);
-						panels.getDisplayTemperaturePanel().setVisible(true);
+						panels.getInputStepsPanel().setVisible(true);
 
 					}
 				});

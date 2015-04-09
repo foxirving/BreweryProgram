@@ -20,6 +20,11 @@ public class AllPanels extends JPanel {
 	private static SignInPanel signInPanel;
 	private static MainProfilePanel userMainProfilePanel;
 	private static WelcomePanel welcomePanel;
+	
+	//quickStart Panel
+	private static brewery.gui.quickStart.InProcessPanel inProcessPanel;
+	private static brewery.gui.quickStart.InputStepsPanel inputStepsPanel;
+	private static brewery.gui.quickStart.ReviewInputStepsPanel reviewInputStepsPanel;
 
 
 	public AllPanels(MainFrame mainFrame) throws IOException{
@@ -36,6 +41,14 @@ public class AllPanels extends JPanel {
 		userMainProfilePanel = new MainProfilePanel(frame, this);
 		
 		welcomePanel = new WelcomePanel(frame, this);
+		
+		//Quick Start Panels
+		
+		inProcessPanel = new brewery.gui.quickStart.InProcessPanel(frame, this);
+		
+		inputStepsPanel = new brewery.gui.quickStart.InputStepsPanel(frame, this);
+		
+		reviewInputStepsPanel = new brewery.gui.quickStart.ReviewInputStepsPanel(frame, this);
 		
 	}
 	
@@ -60,6 +73,20 @@ public class AllPanels extends JPanel {
 
 	public WelcomePanel getWelcomePanel() {
 		return welcomePanel;
+	}
+	
+	//Quick start panels
+
+	public brewery.gui.quickStart.InProcessPanel getInProcessPanel() {
+		return inProcessPanel;
+	}
+
+	public brewery.gui.quickStart.InputStepsPanel getInputStepsPanel() {
+		return inputStepsPanel;
+	}
+
+	public brewery.gui.quickStart.ReviewInputStepsPanel getReviewInputStepsPanel() {
+		return reviewInputStepsPanel;
 	}
 
 

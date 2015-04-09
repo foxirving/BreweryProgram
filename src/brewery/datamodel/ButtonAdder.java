@@ -60,7 +60,7 @@ public class ButtonAdder {
 
 								String name = getInstance().getCurrentProfile();
 								name = username;
-								System.out.println(name);
+								//System.out.println(name);
 
 								panels.getSignInPanel().setVisible(false);
 								panels.getUserMainProfilePanel().setVisible(
