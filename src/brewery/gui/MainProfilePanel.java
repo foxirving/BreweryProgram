@@ -68,6 +68,18 @@ public class MainProfilePanel extends JPanel {
 
 					}
 				});
+		
+		GuiFactory.addButton(getParent(), "Graphs", container, 400, 250,
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						panels.getUserMainProfilePanel().setVisible(false);
+						panels.getGraphsPanel().setVisible(true);
+
+					}
+				});
+		
 
 //		String name = ButtonAdder.getInstance().getCurrentProfile();
 //		System.out.println(name);

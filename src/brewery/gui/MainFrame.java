@@ -14,8 +14,8 @@ import brewery.datamodel.FileIO;
 public class MainFrame extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
-	//Initializes the main frame and all the panels in the GUI
+
+	// Initializes the main frame and all the panels in the GUI
 	private static JFrame frame;
 	static AllPanels allPanels;
 
@@ -44,11 +44,13 @@ public class MainFrame extends JPanel {
 	public MainFrame() throws IOException {
 		initialize();
 
-		//AllPanels class is used to initialize all the panels and uses a getter to allow anyone to get these panels
+		// AllPanels class is used to initialize all the panels and uses a
+		// getter to allow anyone to get these panels
 		allPanels = new AllPanels(this);
-
-		//add each panel to the frame
-		//Do NOT edit the order that theses panels are added to the frame.
+		
+		
+		// add each panel to the frame
+		// Do NOT edit the order that theses panels are added to the frame.
 		frame.getContentPane().add(allPanels.getWelcomePanel());
 		allPanels.getWelcomePanel().setVisible(true);
 
@@ -60,20 +62,26 @@ public class MainFrame extends JPanel {
 
 		frame.getContentPane().add(allPanels.getUserMainProfilePanel());
 		allPanels.getUserMainProfilePanel().setVisible(false);
-		
+
 		frame.getContentPane().add(allPanels.getDisplayTemperaturePanel());
 		allPanels.getDisplayTemperaturePanel().setVisible(false);
-		
-		//quick start Panels
-		
+
+		// quick start Panels
+
 		frame.getContentPane().add(allPanels.getInProcessPanel());
 		allPanels.getInProcessPanel().setVisible(false);
-		
+
 		frame.getContentPane().add(allPanels.getInputStepsPanel());
 		allPanels.getInputStepsPanel().setVisible(false);
-		
+
 		frame.getContentPane().add(allPanels.getReviewInputStepsPanel());
 		allPanels.getReviewInputStepsPanel().setVisible(false);
+
+		// graphs Panel
+		frame.getContentPane().add(allPanels.getGraphsPanel());
+		allPanels.getGraphsPanel().setVisible(false);
+
+	
 
 	}// end MainFrame()
 
