@@ -41,7 +41,7 @@ public class WelcomePanel extends JPanel {
 
 		//add all buttons, labels, etc., to this JPanel(container)
 		JPanel container = new JPanel();
-		container.setBackground(new Color(204, 153, 102));
+		container.setBackground(new Color(104, 53, 102));
 		add(container, "containerOne");
 		container.setLayout(null);
 		
